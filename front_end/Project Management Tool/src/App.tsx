@@ -1,8 +1,6 @@
 import MainRouter from "../MainRouter";
 import { ClerkProvider, SignedIn, SignedOut } from "@clerk/clerk-react";
 import { BrowserRouter } from "react-router-dom";
-import Landing from "./screens/LandingPage/Landing";
-import Dashboard from "./screens/Dashboard/Dashboard";
 import { StyleProvider } from "@ant-design/cssinjs";
 import { ConfigProvider } from "antd";
 
@@ -26,13 +24,9 @@ function App() {
           <BrowserRouter>
             <ClerkProvider publishableKey={VITE_CLERK_PUBLISHABLE_KEY}>
               <MainRouter />
-              <SignedIn>
-                <Dashboard />
-              </SignedIn>
+              <SignedIn></SignedIn>
 
-              <SignedOut>
-                <Landing />
-              </SignedOut>
+              <SignedOut>{/* nothing here */}</SignedOut>
             </ClerkProvider>
           </BrowserRouter>
         </StyleProvider>

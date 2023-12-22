@@ -13,12 +13,12 @@ export default function MyWorks() {
       .get("http://localhost:3000/dashboard/getProjects")
       .then((response) => {
         setProjects(response.data.data);
-        console.log(project)
       })
       .catch((err) => {
         console.log(err);
       });
   }, []);
+
 
 
 
@@ -32,13 +32,13 @@ export default function MyWorks() {
         <div className='p-5 m-1  flex-wrap flex  ' >
 
           {
-            project?.map((item:any) => {
+            project?.map((item:any , index: number) => {
               return(
-                <div className='w-[40%] m-5' >
+                <div className='w-[40%] m-5' key={index} >
                   <ProjectCard
                   project_name={item.name}
                   description={item.description}
-                  id={item.id}
+                  
                 /> 
                 </div>
 
