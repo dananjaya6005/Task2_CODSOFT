@@ -4,15 +4,13 @@ import { AntDesignOutlined, UserOutlined } from "@ant-design/icons";
 
 let color = "white";
 
-export default function ProjectCard() {
+export default function ProjectCard(props : any) {
   return (
-    <div>
-      <div style={{backgroundColor:color}} className="w-[30%] p-5 rounded-md shadow-md ">
-        <h1 className="text-xl font-medium text-gray-800">Project Name </h1>
-        <p className="text-sm text-gray-400 my-2 ">
-          In publishing and graphic design, Lorem ipsum is a placeholder text
-          commonly used to demonstrate the visual form of a document or a
-          typeface without relying
+    
+      <div style={{backgroundColor:color}} className=" p-5 rounded-md shadow-md ">
+        <h1 className="text-xl font-medium text-gray-700">{props.project_name}</h1>
+        <p className="text-sm text-gray-500 my-2 ">
+          {props.description.length > 150 ? props.description.substring(0, 150) + "..." : props.description}
         </p>
 
         <Avatar.Group>
@@ -34,6 +32,6 @@ export default function ProjectCard() {
 
         <Progress  percent={50} status="active" />
       </div>
-    </div>
+    
   );
 }

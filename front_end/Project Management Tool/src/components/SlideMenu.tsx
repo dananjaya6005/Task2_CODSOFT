@@ -3,6 +3,7 @@ import { AppstoreOutlined, MailOutlined, SettingOutlined } from '@ant-design/ico
 import type { MenuProps } from 'antd';
 import { Menu } from 'antd';
 import { useNavigate } from 'react-router';
+import axios from 'axios';
 
 type MenuItem = Required<MenuProps>['items'][number];
 
@@ -22,73 +23,7 @@ function getItem(
   } as MenuItem;
 }
 
-const Project = [
-  {
-    _id : "1",
-    name : "Project 1",
-    description : "This is project 1",
-    tasks : [
-      {
-        _id : "1",
-        name : "Task 1",
-        description : "This is task 1",
-        deadline : "12/12/2021",
-        progress : 0,
-        status : "In Progress"
-      },
-      {
-        _id : "2",
-        name : "Task 2",
-        description : "This is task 2",
-        deadline : "12/12/2021",
-        progress : 0,
-        status : "In Progress"
-      },
-      {
-        _id : "3",
-        name : "Task 3",
-        description : "This is task 3",
-        deadline : "12/12/2021",
-        progress : 0,
-        status : "In Progress"
-      }
-    ]
 
-  },
-  {
-    _id : "2",
-    name : "Project 2",
-    description : "This is project 2",
-    tasks : [
-      {
-        _id : "1",
-        name : "Task 1",
-        description : "This is task 1",
-        deadline : "12/12/2021",
-        progress : 0,
-        status : "In Progress"
-      },
-      {
-        _id : "2",
-        name : "Task 2",
-        description : "This is task 2",
-        deadline : "12/12/2021",
-        progress : 0,
-        status : "In Progress"
-      },
-      {
-        _id : "3",
-        name : "Task 3",
-        description : "This is task 3",
-        deadline : "12/12/2021",
-        progress : 0,
-        status : "In Progress"
-      }
-    ]
-
-  }
-
-]
 
 const initialItems: MenuProps['items'] = [
   getItem('Dashbaord', 'grp', null, 
@@ -119,21 +54,43 @@ const initialItems: MenuProps['items'] = [
 
 
 const SlideMenu: React.FC = () => {
+  
   const [menuItems, setMenuItems] = useState(initialItems);
   const navigate = useNavigate();
+  const [Project, setProject] = useState([]);
 
 
   useEffect(() => {
-
-    creteMenuItemsBasedOnProject(Project);
     
-  }, [])
+      axios.get("http://localhost:3000/dashboard/getProjects")
+      .then((response) => {
+        
+        creteMenuItemsBasedOnProject(response.data.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+   
+    
+  },[]);
+
+
+
+  console.log("project",Project);
+
+  
+
+
+  // useEffect(() => {
+
+  //   creteMenuItemsBasedOnProject(Project);
+    
+  // }, [])
+
 
   function creteMenuItemsBasedOnProject(projects : any) {
-    let menuItems : MenuItem[] = [];
-  
-   setMenuItems(prevItems => [...prevItems, ...menuItems]);
-
+    
+   
     projects.forEach(project => {
 
    const ArrywegoingtoPush  = [  getItem(project.name, project._id, <SettingOutlined />, [
@@ -144,6 +101,7 @@ const SlideMenu: React.FC = () => {
       ])]
        
       setMenuItems(prevItems => [...prevItems, ...ArrywegoingtoPush])
+
     });
   
   }

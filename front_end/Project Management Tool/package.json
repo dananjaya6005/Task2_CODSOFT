@@ -14,13 +14,16 @@
     "@headlessui/react": "^1.7.17",
     "@heroicons/react": "^2.1.1",
     "antd": "^5.12.4",
+    "axios": "^1.6.2",
     "moment": "^2.29.4",
     "react": "^18.2.0",
+    "react-color": "^2.19.3",
     "react-dom": "^18.2.0",
     "react-router": "^6.21.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.43",
+    "@types/react-color": "^3.0.10",
     "@types/react-dom": "^18.2.17",
     "@typescript-eslint/eslint-plugin": "^6.14.0",
     "@typescript-eslint/parser": "^6.14.0",
