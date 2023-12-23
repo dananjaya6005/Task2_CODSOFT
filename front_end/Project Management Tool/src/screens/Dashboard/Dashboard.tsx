@@ -52,7 +52,7 @@ export default function Dashboard() {
  
       <MemberList/> */}
       </div>
-      <SignOutButton />
+      
     </>
   );
 }

@@ -4,10 +4,12 @@ import type { MenuProps } from "antd";
 import { Menu } from "antd";
 import { useNavigate } from "react-router";
 import axios from "axios";
+import { useUser } from "@clerk/clerk-react";
+import { SignOutButton } from "@clerk/clerk-react";
 
 type MenuItem = Required<MenuProps>["items"][number];
 
-function getItem(
+function getItem (
   label: React.ReactNode,
   key: React.Key,
   icon?: React.ReactNode,
@@ -45,6 +47,7 @@ const SlideMenu: React.FC = () => {
   const [menuItems, setMenuItems] = useState(initialItems);
   const navigate = useNavigate();
   const [Project, setProject] = useState([]);
+  const { user } = useUser();
 
   useEffect(() => {
     axios
@@ -57,7 +60,7 @@ const SlideMenu: React.FC = () => {
       });
   }, []);
 
-  // console.log(Project)
+  console.log(Project)
 
   useEffect(() => {
     setMenuItems(initialItems); 
@@ -65,12 +68,19 @@ const SlideMenu: React.FC = () => {
   }, [Project]);
 
   function creteMenuItemsBasedOnProject(projects: any) {
+
     const newItems = projects.map((project: any) => {
+
+      if(project.manager === user?.emailAddresses[0].emailAddress || project.members.includes(user?.emailAddresses[0].emailAddress) ){
+        
       return getItem(project.name, project._id, <SettingOutlined />, [
         getItem("Task", `Task${project._id}`),
         getItem("Deadlines", `Dead${project._id}`),
         getItem("Track Progress", `Track${project._id}`),
       ]);
+      }
+
+
     });
 
     setMenuItems((prevItems) => [...prevItems, ...newItems]);
@@ -78,13 +88,13 @@ const SlideMenu: React.FC = () => {
 
   const onClick: MenuProps["onClick"] = (e) => {
     if (e.key.includes("Task")) {
-      navigate(`/getTaskbyid/:${e.key}`);
+      navigate(`/getTaskbyid/${e.key}`);
 
     } else if (e.key.includes("Dead")) {
-      navigate(`/getdeadlinebyid/:${e.key}`);
+      navigate(`/getdeadlinebyid/${e.key}`);
 
     } else if (e.key.includes("Track")) {
-      navigate(`/getTrackById/:${e.key}`);
+      navigate(`/getTrackById/${e.key}`);
 
     } else if (e.key === "myworks") {
       navigate(`/myworks`);
@@ -104,6 +114,9 @@ const SlideMenu: React.FC = () => {
 
   return (
     <>
+     
+
+
       <Menu
         onClick={onClick}
         style={{ width: 256 }}
