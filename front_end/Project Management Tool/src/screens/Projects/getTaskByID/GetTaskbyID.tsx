@@ -1,12 +1,14 @@
+
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import { Button, DatePicker, Form, Input, Modal, Select, Table } from "antd";
+import { Button, DatePicker, Form, Input, Modal, Select } from "antd";
 import type { DatePickerProps } from "antd";
 import { PlusCircleOutlined } from "@ant-design/icons";
-import type { ColumnsType } from "antd/es/table";
 import { DeleteFilled, EditFilled } from "@ant-design/icons";
-import UpdateTask from "../../../components/UpdateTask";
+import dayjs from 'dayjs';
+import 'dayjs/locale/zh-cn';
+
 
 
 
@@ -25,6 +27,7 @@ export default function GetTaskbyID() {
   const [LastUpdate, setLastUpdate] = useState(new Date().toLocaleString());
   const [needtoRrender, setNeedtoRrender] = useState(false);
   const [isOpenUpdateTaskModle, setIsOpenUpdateTaskModle] = useState(false);
+  const [updateTaskID, setUpdateTaskID] = useState("");
 
 
 
@@ -97,6 +100,33 @@ export default function GetTaskbyID() {
 
   }
 
+  async function updateTask(){
+
+    await axios.post(`http://localhost:3000/dashboard/updateTask/${passid}/${updateTaskID}`,{
+      task:{
+        name: updateTaskName,
+        description: updateDescription,
+        startDate: updateStartDate,
+        endDate: updateEndDate,
+        status: updateStatus,
+        lastUpdate: updateLastUpdate,
+      }
+    })
+    .then((res)=>{
+      console.log(res.data)
+      setTimeout(()=>{
+        setNeedtoRrender(!needtoRrender);
+        setIsOpenUpdateTaskModle(false);
+
+      },500)
+      
+    })
+    .catch((err)=>{
+      console.log(err)
+    });
+
+  }
+
 
 
 
@@ -145,9 +175,30 @@ export default function GetTaskbyID() {
   };
 
 
- 
+
+  const onUpdateStartDate: DatePickerProps["onChange"] = (date, dateString) => {
+    console.log(date, dateString);
+    setUpdateStartDate(dateString);
+  };
+
+  const onUpdateEndDate: DatePickerProps["onChange"] = (date, dateString) => {
+    console.log(date, dateString);
+    setUpdateEndDate(dateString);
+  };
 
 
+
+  function  grabandsetUpdateTaskData(task : any){
+
+    setUpdateTaskID(task._id)
+    setIsOpenUpdateTaskModle(!isOpenUpdateTaskModle)
+    setUpdateTaskName(task.name)
+    setUpdateDescription(task.description)
+    setUpdateStatus(task.status)
+    setUpdateStartDate(task.startDate)
+    setUpdateEndDate(task.endDate)
+    
+  }
 
 
   return (
@@ -211,7 +262,7 @@ export default function GetTaskbyID() {
                         <div>
                           <Button
                             type="primary"
-                            onClick={()=>{setIsOpenUpdateTaskModle(!isOpenUpdateTaskModle)}}
+                            onClick={()=>{grabandsetUpdateTaskData(task)}}
                             className="my-3"
                             icon={<EditFilled />}
                           ></Button>
@@ -310,15 +361,16 @@ export default function GetTaskbyID() {
          <Modal
         title="Update Task"
         open={isOpenUpdateTaskModle}
-        onOk={()=>{}}
+        onOk={updateTask}
         onCancel={()=>{setIsOpenUpdateTaskModle(false)}}
       >
         <div className="my-7">
           <Form className="my-5 w-full max-[500px]:w-10/12" layout="vertical">
             <Form.Item label="Task Name">
               <Input
+               value={updateTaskName}
                 onChange={(e) => {
-                  setTaskName(e.target.value);
+                  setUpdateTaskName(e.target.value);
                 }}
                 className="w-1/2  max-[500px]:w-full"
                 placeholder="Enter Project Name ..."
@@ -327,8 +379,9 @@ export default function GetTaskbyID() {
 
             <Form.Item label="Description">
               <TextArea
+              value={updateDescription}
                 onChange={(e) => {
-                  setDescription(e.target.value);
+                  setUpdateDescription(e.target.value);
                 }}
                 maxLength={500}
                 className="w-1/2  max-[500px]:w-full"
@@ -341,10 +394,9 @@ export default function GetTaskbyID() {
         <div>
           <Select
             defaultValue="🟢 active"
+            value={updateStatus}
             style={{ width: 200 }}
-            onChange={(value) => {
-              setStatus(value);
-            }}
+            onChange={(value) => {setUpdateStatus(value)}}
             options={[
               { value: "⚪ not started", label: "⚪ not started" },
               { value: "🟢 active", label: "🟢 active" },
@@ -358,12 +410,12 @@ export default function GetTaskbyID() {
         <div className=" flex justify-between ">
           <div>
             <p className="text-sm my-2 ">Start date</p>
-            <DatePicker onChange={onChangeStartDate} />
+            <DatePicker value={dayjs(updateStartDate, 'YYYY-MM-DD')} onChange={onUpdateStartDate} />
           </div>
 
           <div>
             <p className="text-sm my-2"> Due Date </p>
-            <DatePicker onChange={onChangeEndDate} />
+            <DatePicker  value={dayjs(updateEndDate, 'YYYY-MM-DD')} onChange={onUpdateEndDate} />
           </div>
         </div>
       </Modal>
@@ -371,7 +423,7 @@ export default function GetTaskbyID() {
 
     </div>
 
-
+  
 
       
 

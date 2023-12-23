@@ -8,6 +8,7 @@ import MyWorks from "../MyWorks/MyWorks";
 import NewProject from "../NewProject/NewProject";
 import CreateOrg from "../Organizations/CreateOrg";
 import ManageOrg from "../Organizations/ManageOrg";
+import Getpostbyid from "../GetPostById/Getpostbyid";
 // import { useOrganization } from "@clerk/clerk-react";
 
 export default function Dashboard() {
@@ -43,6 +44,7 @@ export default function Dashboard() {
           <Route path="/createorg" element={<CreateOrg />} />
           <Route path="/manageOrg" element={<ManageOrg />} />
           <Route path ="/myworks" element={<MyWorks/>} />
+          <Route path ="/getpostbyid/:id" element={<Getpostbyid/>} />
         </Routes>
         
        
