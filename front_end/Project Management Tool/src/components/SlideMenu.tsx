@@ -40,7 +40,7 @@ const initialItems: MenuProps["items"] = [
 
   { type: "divider" },
 
-  getItem("Your Project", "grp", null, [], "group"),
+  getItem("Your Project", "grp1", null, [], "group"),
 ];
 
 const SlideMenu: React.FC = () => {

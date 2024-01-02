@@ -136,9 +136,11 @@ export default function GetTaskbyID() {
     const endDate = new Date(enddate);
     const diff = endDate - currdate;
 
-    const resultDate = Math.floor(diff / (1000 * 60 * 60 * 24));
+  
 
-    return resultDate;
+    const resultDate = Math.ceil(diff / (1000 * 60 * 60 * 24));
+
+    return resultDate ;
   };
 
   const decideColorForDaysleftbtn = (date) => {
@@ -225,6 +227,7 @@ export default function GetTaskbyID() {
                 New Task
               </Button>
             </div>
+            
 
             <div className="my-10">
               {project.task?.map((task, index) => {

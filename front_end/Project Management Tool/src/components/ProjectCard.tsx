@@ -9,6 +9,7 @@ import type { MenuProps } from "antd";
 import { useNavigate } from "react-router";
 import { ExclamationCircleFilled } from '@ant-design/icons';
 import { useParams } from "react-router";
+import axios from "axios";
 
 let color = "white";
 
@@ -16,6 +17,26 @@ let color = "white";
 export default function ProjectCard(props: any) {
 
 const navigate = useNavigate();
+
+
+async function deleteProject (id : string){
+
+  await axios.delete(`http://localhost:3000/dashboard/deleteProject/${id}`)
+  .then((res)=>{
+      console.log(res);
+
+      setTimeout(()=>{
+        window.location.reload();
+      },700)
+  })
+  .catch((err)=>{
+    console.log(err)
+  })
+
+}
+
+
+
 
 const showDeleteConfirm = () => {
   confirm({
@@ -26,7 +47,7 @@ const showDeleteConfirm = () => {
     okType: 'danger',
     cancelText: 'No',
     onOk() {
-      console.log('OK');
+      deleteProject(props._id);
     },
     onCancel() {
       console.log('Cancel');
@@ -58,7 +79,6 @@ const items: MenuProps['items'] = [
 ];
 
 const { confirm } = Modal;
-
 
 
 
@@ -104,7 +124,8 @@ const { confirm } = Modal;
         />
       </Avatar.Group>
 
-      <Progress percent={50} status="active" />
+      <Progress percent={props.completedTask} status={(props.completedTask === 100.0 ? "success" : "" 
+      || props.completedTask === 0.0 ? "exception" :  "" ) } />
     </div>
   );
 }
