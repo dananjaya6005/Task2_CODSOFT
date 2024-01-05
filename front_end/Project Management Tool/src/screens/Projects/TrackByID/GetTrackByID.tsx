@@ -4,6 +4,8 @@ import axios from "axios";
 import { BarChart, Card, Title } from "@tremor/react";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
+import commonBg from '../../../images/commonBg.png';
+
 
 const chartdata = [
   {
@@ -106,7 +108,14 @@ export default function GetTrackByID() {
 
   return (
     <>
-      <div className="h-screen w-screen">
+      <div style={{
+        backgroundImage: `url(${commonBg})`,
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        
+      
+      }} className="h-screen w-screen">
         <Card className="m-5 w-10/12">
           <Title> Inspect the tasks of your project </Title>
 
@@ -129,9 +138,9 @@ export default function GetTrackByID() {
         </Card>
 
 
-        <div className="flex  " >
+        <div className="flex bg-white m-5 w-fit rounded-xl shadow-md " >
 
-        <div className="flex justify-around w-4/5	" >
+        <div className="flex justify-around w-4/5 mb-5	" >
 
           <div className="flex justify-center flex-col items-center ">
           <p className="text-xl text-gray-700 font-semibold py-5" >Task Achieved </p>
@@ -142,11 +151,11 @@ export default function GetTrackByID() {
             textColor: '#00b359',
             trailColor: '#ccffe6',
             backgroundColor: '#ccffe6',
-          })} />;
+          })} />
 
         </div>
 
-        <div className="flex justify-center flex-col items-center ">
+        <div className="flex justify-center flex-col items-center  ">
           <p className="text-xl text-gray-700 font-semibold py-5" > Task Unfinished </p>
           <CircularProgressbar  strokeWidth={10} value={100- percentage} text={`${100 - percentage}%`}
           className="w-3/5"
@@ -155,7 +164,7 @@ export default function GetTrackByID() {
             textColor: '#e6005c',
             trailColor: '#ffcce0',
             backgroundColor: '#e6005c',
-          })} />;
+          })} />
 
         </div>
 

@@ -12,10 +12,7 @@ import type { SelectProps } from "antd";
 import axios from "axios";
 import { useUser } from "@clerk/clerk-react";
 import { message } from 'antd';
-
-
-
-
+import commonBg from '../../images/commonBg.png';
 
 
 const TypeOfProject = [
@@ -162,7 +159,14 @@ export default function () {
 
 
   return (
-    <div className="min-h-screen w-screen bg-gray-50 flex justify-center items-center">
+    <div style={
+      {
+        backgroundImage: `url(${commonBg})`,
+        backgroundSize: 'cover',
+        backgroundRepeat: 'no-repeat',
+        backgroundPosition: 'center',
+      }
+    } className="min-h-screen w-screen flex justify-center items-center">
      
       {contextHolder}
 

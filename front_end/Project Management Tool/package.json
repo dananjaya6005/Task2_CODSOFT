@@ -28,7 +28,8 @@
     "react-color": "^2.19.3",
     "react-dom": "^18.2.0",
     "react-router": "^6.21.0",
-    "react-single-calendar-events": "^2.2.0"
+    "react-single-calendar-events": "^2.2.0",
+    "tailwindcss-hero-patterns": "^0.1.2"
   },
   "devDependencies": {
     "@types/react": "^18.2.43",

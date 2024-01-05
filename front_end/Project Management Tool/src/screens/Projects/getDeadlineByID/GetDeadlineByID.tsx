@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from "react";
-import type { Dayjs } from "dayjs";
-import type { BadgeProps, CalendarProps } from "antd";
-import { Badge } from "antd";
 import { useParams } from "react-router";
 import axios from "axios";
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { Calendar, dayjsLocalizer   } from 'react-big-calendar'
 import dayjs from 'dayjs';
-
+import commonBg from '../../../images/commonBg.png';
 
 const GetDeadlineByID = () => {
   const [projects, setProjects] = useState([]);
@@ -62,9 +59,19 @@ const GetDeadlineByID = () => {
 
   return (
     <>
-      <div className="w-8/12 m-5 bg-white shadow-lg p-5 rounded-lg ">
-      <div>
-
+      <div style={
+        {
+          backgroundImage: `url(${commonBg})`,
+          backgroundRepeat: 'no-repeat',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          height: '100vh',
+          width: '100vw'
+        }
+      } className="w-8/12 m-5 bg-white shadow-lg p-5 rounded-lg ">
+    
+    <div className="bg-white" >
+    
     <Calendar
       localizer={localizer}
       events={myEventsList}

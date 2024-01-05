@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import ProjectCard from "../../components/ProjectCard";
 import axios from "axios";
-import bgimg from '../../images/bgimg.jpg';
-
+import bgimg1 from '../../images/bgimg.jpg';
+import commmonBg from '../../images/commonBg.png';
 
 export default function MyWorks() {
   const [project, setProjects] = useState([]);
@@ -45,7 +45,7 @@ export default function MyWorks() {
   return (
     <>
       <div className="min-sceen-h bg-gray-50 w-screen "
-       style={{ backgroundImage: "url(" + "https://github.com/dananjaya6005/imageUploadForProject/blob/main/bgimg.jpg?raw=true" + ")",
+       style={{ backgroundImage: `url(${commmonBg})`,
 
        backgroundPosition: 'center',
        backgroundSize: 'cover',
@@ -54,7 +54,7 @@ export default function MyWorks() {
 
 
        }}  >
-        <div className="m-10 bg-white rounded-md shadow-md bg-opacity-90 ">
+        <div className="m-10 bg-white rounded-md shadow-md  ">
           <div className="p-5 m-1  flex-wrap flex  ">
             {project?.map((item: any, index: number) => {
 

@@ -8,7 +8,7 @@ import { PlusCircleOutlined } from "@ant-design/icons";
 import { DeleteFilled, EditFilled } from "@ant-design/icons";
 import dayjs from 'dayjs';
 import 'dayjs/locale/zh-cn';
-
+import commonBg from '../../../images/commonBg.png';
 
 
 
@@ -205,7 +205,14 @@ export default function GetTaskbyID() {
 
   return (
     <>
-      <div className="min-h-screen w-screen ">
+      <div style={{
+        backgroundImage: `url(${commonBg})`,
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+       
+     
+      }} className="min-h-screen w-screen ">
         <div className="bg-white rounded-lg shadow-md m-10">
           <div className="flex flex-col justify-between p-5">
             <div className="flex flex-col">

@@ -5,7 +5,8 @@ import { Menu } from "antd";
 import { useNavigate } from "react-router";
 import axios from "axios";
 import { useUser } from "@clerk/clerk-react";
-import { SignOutButton } from "@clerk/clerk-react";
+import bgImagemenu from '../images/bgImageMenu.jpg';
+
 
 type MenuItem = Required<MenuProps>["items"][number];
 
@@ -118,8 +119,11 @@ const SlideMenu: React.FC = () => {
 
 
       <Menu
+       
         onClick={onClick}
-        style={{ width: 256 }}
+        style={{ width: 256 , backgroundImage: `url(${bgImagemenu})`, 
+                backgroundRepeat: "no-repeat", backgroundSize: "cover", backgroundPosition: "center center", 
+      }}
         defaultSelectedKeys={["1"]}
         defaultOpenKeys={["sub1"]}
         mode="inline"
