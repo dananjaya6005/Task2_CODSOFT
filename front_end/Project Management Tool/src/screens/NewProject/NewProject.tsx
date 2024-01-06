@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect,useMemo} from "react";
 import book from "../../images/book.png";
 import engineer from "../../images/engineer.png";
 import aglie from "../../images/agile.png";
@@ -69,13 +69,14 @@ export default function () {
   useEffect(() => {
     if (memberships.data) {
       console.log(memberships.data);
-      pushMemberstoOptions();
+     
     } else {
       setMembers([]);
     }
   }, [memberships.data]);
 
-  const pushMemberstoOptions = () => {
+
+  const pushMemberstoOptions = useMemo(() => {
     if (memberships) {
       memberships.data.map((member) => {
         setOptions((prev) => [
@@ -87,7 +88,22 @@ export default function () {
         ]);
       });
     }
-  };
+  }
+  ,[memberships.data])
+
+  // const pushMemberstoOptions = () => {
+  //   if (memberships) {
+  //     memberships.data.map((member) => {
+  //       setOptions((prev) => [
+  //         ...prev,
+  //         {
+  //           label: member.publicUserData.identifier,
+  //           value: member.publicUserData.identifier,
+  //         },
+  //       ]);
+  //     });
+  //   }
+  // };
 
   //handle date picker
   const onChangeStartDate: DatePickerProps["onChange"] = (date, dateString) => {
@@ -146,6 +162,12 @@ export default function () {
       console.log(res.data)
       if(res.data.sucess == true){
         success()
+
+        setTimeout(() => {
+          window.location.href = "/myworks"
+        }, 2000);
+
+
       }else if(res.data.sucess == false){
         error()
       }

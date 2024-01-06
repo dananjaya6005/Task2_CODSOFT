@@ -61,7 +61,7 @@ const SlideMenu: React.FC = () => {
       });
   }, []);
 
-  console.log(Project)
+
 
   useEffect(() => {
     setMenuItems(initialItems); 

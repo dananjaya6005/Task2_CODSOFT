@@ -20,24 +20,18 @@ export default function Dashboard() {
   const { isSignedIn, user } = useUser();
   const location = useLocation();
 
-  const [date, setDate] = useState(dayjs().format("YYYY-MM-DD"));
-  const [time, setTime] = useState(dayjs().format("HH:mm:ss"));
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setTime(dayjs().format("HH:mm:ss"));
-    }, 1000);
 
-    return () => {
-      clearInterval(timer);
-    };
-  }, []);
+
+
+  console.log("dashboard");
 
   return (
     <>
       <div className="flex flex-row min-h-screen  ">
         <SlideMenuBar />
         <Routes>
+          
           <Route path="/myworks" element={<MyWorks />} />
           <Route path="/newproject" element={<NewProject />} />
           <Route path="/getTaskbyid/:id" element={<GetTaskbyID />} />
@@ -45,12 +39,12 @@ export default function Dashboard() {
           <Route path="/getTrackById/:id" element={<GetTrackByID />} />
           <Route path="/createorg" element={<CreateOrg />} />
           <Route path="/manageOrg" element={<ManageOrg />} />
-          <Route path="/myworks" element={<MyWorks />} />
+          
           <Route path="/getpostbyid/:id" element={<Getpostbyid />} />
         </Routes>
 
         {location.pathname === "/" ? (
-          <div className=" flex-1     ">
+          <div className=" flex-1    bg-gradient-to-t from-indigo-300 to-white ">
             <div className=" p-2 flex  justify-between shadow-sm flex-1  ">
               <p className=" w-fit justify-start text-lg font-medium text-gray-700 ml-2 ">
                 DASHBOARD
@@ -102,7 +96,7 @@ export default function Dashboard() {
          <div className="m-4" ><h3 className=" text-2xl font-semibold text-gray-800 " >Welcome to <span className="text-rose-600" >TaskEzy</span> Dashbaord !</h3></div>
 
 
-         <div className=" flex justify-center" >
+         <div className=" flex justify-center bg-gradient-to-t from-indigo-50 to-slate-50 rounded-2xl m-5 " >
 
          <div className="w-10/12 max-[1280px]:w-full " >
           <img src={guideIntro} className="w-full h-full" />
@@ -111,7 +105,7 @@ export default function Dashboard() {
          </div>
 
 
-    <div className="">
+    <div className="bg-white m-5 rounded-3xl bg-opacity-80">
     <div className="p-4 m-4 text-gray-700">
       <div className="font-bold text-xl mb-2">Here’s a list of features for your project from , "TaskEzy"</div>
       <ul className="list-disc pl-5">
@@ -130,9 +124,6 @@ export default function Dashboard() {
   </div>
 
        
-
-
-
 
 
 

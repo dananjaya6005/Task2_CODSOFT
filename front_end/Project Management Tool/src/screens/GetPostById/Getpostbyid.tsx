@@ -66,6 +66,8 @@ export default function Getpostbyid() {
 
 
 
+
+
   return (
     <>
       <div className="bg-gray-50 w-screen ">
