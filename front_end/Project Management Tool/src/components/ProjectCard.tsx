@@ -1,3 +1,4 @@
+//@ts-nocheck
 import React, { useEffect, useState, memo } from "react";
 import { Avatar, Button, Tooltip, Progress, Modal, Dropdown } from "antd";
 import { MoreOutlined } from "@ant-design/icons";
@@ -139,7 +140,7 @@ const ProjectCard = memo((props) => {
             : ""
         }
       />
-      {props.manager}
+      
     </div>
   );
 });

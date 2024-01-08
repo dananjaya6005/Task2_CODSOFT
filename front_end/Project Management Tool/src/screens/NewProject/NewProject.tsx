@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { useState, useEffect,useMemo} from "react";
 import book from "../../images/book.png";
 import engineer from "../../images/engineer.png";

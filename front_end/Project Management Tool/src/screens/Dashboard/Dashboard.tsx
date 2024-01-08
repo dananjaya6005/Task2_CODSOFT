@@ -9,16 +9,44 @@ import NewProject from "../NewProject/NewProject";
 import CreateOrg from "../Organizations/CreateOrg";
 import ManageOrg from "../Organizations/ManageOrg";
 import Getpostbyid from "../GetPostById/Getpostbyid";
-import { useEffect, useState } from "react";
-import dayjs from "dayjs";
 import { useLocation } from "react-router";
-import dashboaadMainImg from '../../images/Innovation-amico.png';
+import { Spin } from 'antd';
 import guideIntro from '../../images/9730438-ai.png';
+import { useEffect, useState } from "react";
+import axios from "axios";
+import serverLogo from '../../images/Server-amico.png';
+import { FloatButton } from 'antd';
+import { HomeOutlined  } from '@ant-design/icons';
+import { useNavigate } from "react-router";
 // import { useOrganization } from "@clerk/clerk-react";
 
 export default function Dashboard() {
-  const { isSignedIn, user } = useUser();
+  const { user } = useUser();
   const location = useLocation();
+
+  const [project, setProjects] = useState([]);
+  const navigate = useNavigate();
+
+
+  
+  useEffect(() => {
+    getProjects();
+  }, []);
+
+  async function getProjects() {
+    await axios
+      .get("http://localhost:3000/dashboard/getProjects")
+      .then((response) => {
+        setProjects(response.data.data);
+        console.log(response.data.data);
+        
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+     
+  }
+
 
 
 
@@ -56,42 +84,6 @@ export default function Dashboard() {
 
 
             
-
-            {/* <div className="bg-repeat w-full h-full text-primary-100 " >
-
-            <div className="flex flex-row justify-between ml-10 p-7 ">
-              <p className=" text-4xl font-semibold text-cyan-700 ">
-                Welcome back to TaskEzy
-              </p>
-
-              <div className="mr-20" >
-                <p className="text-xl font-semibold text-gray-600 ">{date}</p>
-                <p className="text-3xl font-semibold text-gray-600">{time}</p>
-              </div>
-            </div>
-
-            <div className="mx-7">
-              <p className="text-2xl font-semibold text-fuchsia-800">
-                Hello,👋 {user?.firstName} !{" "}
-              </p>
-            </div>
-
-            <div className="mx-7 my-10 flex justify-center items-center   ">
-              <img src={dashboaadMainImg} className="size-1/3 duration-700 hover:drop-shadow-[0_35px_35px_rgba(75,0,130,0.35)] " />
-              <p className="my-5 mx-5 text leading-8 " >
-                Welcome back to <b>TaskEzy</b>! Your one-stop solution for seamless
-                project management. Dive into your projects, tick off those
-                tasks, and watch as your ideas transform into accomplishments.
-                Remember, every task completed is a step closer to your goal.
-                Let’s make progress happen! Today is another opportunity to move
-                closer to your project milestones. Let’s seize the day and make
-                the most of it with TaskEzy !
-              </p>
-            </div>
-
-
-            </div>
-         */}
           <div className="m-4 text-3xl font-semibold text-gray-800 ">Hello {user?.firstName} , </div>
          <div className="m-4" ><h3 className=" text-2xl font-semibold text-gray-800 " >Welcome to <span className="text-rose-600" >TaskEzy</span> Dashbaord !</h3></div>
 
@@ -123,21 +115,50 @@ export default function Dashboard() {
     </div>
   </div>
 
-       
-
-
 
 
 
 
           </div>
         ) : null}
+
+        
       </div>
+
+      {
+        project.length === 0 && (
+
+          <div style={{
+            position: 'absolute', left: '50%', top: '50%',
+            transform: 'translate(-50%, -50%)',
+            
+          }}
+          className="bg-white w-1/2 flex  justify-center items-center flex-col p-5 rounded-xl bg-opacity-90 shadow-md"
+          >  
+           <img src={serverLogo} className="w-1/4 my-5" />
+            <Spin size="large" />
+            <h1 className="text-xl font-semibold text-indigo-600 m-5">Still Loading Data ...</h1>
+             <p className="text-rose-500 font-medium text-lg " >Our server is runnng slowly. Please wait 100 seconds !</p>
+             <p className="my-3 text-lg ">After the server wakes up you can run faster 😋</p>
+          </div>
+
+        )
+
+      }
+
+
+<FloatButton
+      shape="circle"
+      type="primary"
+      style={{ right: 20, bottom: 20 }}
+      icon={<HomeOutlined />}
+      onClick={() => {navigate('/')}}
+    />
+
+
+
     </>
   );
 }
 
-// TaskEzy is a project management tool that helps you to manage your
-// projects and tasks. You can create your own organization and invite
-// your team members to work together. You can also create your own
-// personal projects and tasks.
+

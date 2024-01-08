@@ -1,5 +1,5 @@
 import commonBG from '../../images/commonBg.png';
-import { CreateOrganization ,OrganizationProfile } from "@clerk/clerk-react";
+import { CreateOrganization  } from "@clerk/clerk-react";
 
 
 export default function CreateOrg() {

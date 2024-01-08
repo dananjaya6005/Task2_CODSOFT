@@ -1,4 +1,4 @@
-
+//@ts-nocheck
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
@@ -9,7 +9,7 @@ import { DeleteFilled, EditFilled } from "@ant-design/icons";
 import dayjs from 'dayjs';
 import 'dayjs/locale/zh-cn';
 import commonBg from '../../../images/commonBg.png';
-
+import emytytask from '../../../images/Empty-cuate.png';
 
 
 export default function GetTaskbyID() {
@@ -298,6 +298,22 @@ export default function GetTaskbyID() {
                   </div>
                 );
               })}
+
+              {
+                project.task?.length === 0 && (
+                  <div className="flex justify-center my-10" >
+                    <div className="flex flex-col justify-center items-center" >
+                      <img src={emytytask} className="w-1/2" alt="empty" />
+                      <p className="text-center text-4xl font-semibold text-gray-300 my-5 " > Please create a new Task </p>
+                      <p className="text-center text-xl font-semibold text-gray-300 " >you have not created any Task yet !</p>
+                    </div>
+                  </div>
+                )
+
+              }
+
+
+
             </div>
           </div>
         </div>

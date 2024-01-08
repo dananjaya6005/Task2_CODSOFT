@@ -41,7 +41,7 @@ const initialItems: MenuProps["items"] = [
 
   { type: "divider" },
 
-  getItem("Your Project", "grp1", null, [], "group"),
+  getItem("Your or Assigned Project ", "grp1", null, [], "group"),
 ];
 
 const SlideMenu: React.FC = () => {
@@ -116,8 +116,6 @@ const SlideMenu: React.FC = () => {
   return (
     <>
      
-
-
       <Menu
        
         onClick={onClick}
@@ -128,7 +126,9 @@ const SlideMenu: React.FC = () => {
         defaultOpenKeys={["sub1"]}
         mode="inline"
         items={menuItems}
+        
       />
+    
     </>
   );
 };

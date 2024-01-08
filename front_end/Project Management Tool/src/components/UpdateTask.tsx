@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 import React, { useState } from 'react'
 import { Button, DatePicker, Form, Input, Modal, Select, Table } from "antd";
 import type { DatePickerProps } from "antd";

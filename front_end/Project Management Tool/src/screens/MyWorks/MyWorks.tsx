@@ -1,11 +1,18 @@
-import { useState, useEffect } from "react";
+//@ts-nocheck
+import { useState, useEffect, useMemo } from "react";
 import ProjectCard from "../../components/ProjectCard";
 import axios from "axios";
 import bgimg1 from "../../images/bgimg.jpg";
 import commmonBg from "../../images/commonBg.png";
+import { useUser } from "@clerk/clerk-react";
+import ProjetcEmpty from '../../images/Empty-rafiki.png';
+
 
 export default function MyWorks() {
   const [project, setProjects] = useState([]);
+  const [projectHasAuth, setProjectHasAuth] = useState([]);
+  const { user } = useUser();
+  
 
   useEffect(() => {
     getProjects();
@@ -17,6 +24,7 @@ export default function MyWorks() {
       .then((response) => {
         setProjects(response.data.data);
         console.log(response.data.data);
+        
       })
       .catch((err) => {
         console.log(err);
@@ -37,6 +45,17 @@ export default function MyWorks() {
   };
 
 
+  useEffect(() => {
+    const newProjects = project.filter(item => item.manager === user?.emailAddresses[0].emailAddress);
+    setProjectHasAuth(newProjects);
+  }, [project, user]);
+  
+
+
+  console.warn(project)
+  console.warn(projectHasAuth)
+
+
 
   return (
     <>
@@ -52,10 +71,11 @@ export default function MyWorks() {
       >
         <div className="m-10 bg-white rounded-md shadow-md  ">
           <div className="p-5 m-1  flex-wrap flex  ">
-            {project?.map((item: any, index: number) => {
-              let completedTasks = calculateCompletedTasksByfilerMethod(
-                item.task
-              );
+            { projectHasAuth?.map((item: any, index: number) => {
+
+              let completedTasks = calculateCompletedTasksByfilerMethod(item.task);
+
+        
 
               return (
                 <div className="w-[40%] m-5" key={index}>
@@ -69,7 +89,27 @@ export default function MyWorks() {
                   />
                 </div>
               );
+
             })}
+
+            { projectHasAuth?.length === 0 && (
+
+              <div className=" " >
+                <div className="flex  justify-center " >
+                  <img src={ProjetcEmpty} className="w-1/2" alt="empty" />
+                  
+                </div>
+                <p className="text-center text-4xl font-semibold text-gray-300 my-5 " > Please create a new Project </p>
+                <p className="text-center text-xl font-semibold text-gray-300 " >you have not created any project yet !</p>
+
+              </div>
+
+            ) 
+            }
+
+
+
+
           </div>
         </div>
       </div>

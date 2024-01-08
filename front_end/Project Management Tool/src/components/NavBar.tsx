@@ -6,7 +6,7 @@ import pmlogo from './Pm_logo.png';
 
 const navigation = [
   { name: "Home", href: "/", current: true },
-  { name: "About us", href: "/createpostprotected", current: false },
+  { name: "About us", href: "/aboutus", current: false },
   { name: "FAQs", href: "/FAQs", current: false },
 ];
 

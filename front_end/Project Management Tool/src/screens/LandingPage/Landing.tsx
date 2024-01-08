@@ -6,15 +6,12 @@ import ProcessGuide from '../../images/processGude.png';
 import landingPageLogo from '../../images/Innovation-amico.png';
 
 
-
 export default function Landing() {
   const navigate = useNavigate();
-
 
   return (
 
     <>
-    
     
     <div style={{
       backgroundImage: `url(${bgfhd})`,
@@ -47,10 +44,19 @@ export default function Landing() {
             journey with TaskSphere today!
           </p>
 
-          <button onClick={()=>{navigate('/signup')}} className="bg-rose-600 w-fit 
+          <div className='flex  justify-around '>
+
+          <button onClick={()=>{navigate('/signup')}} className="bg-emerald-500 w-fit 
           min-[1800px]:text-2xl px-8 my-5 py-3 text-xl rounded-3xl font-medium  min-[1800px]:px-10
           min-[1800px]:py-4  min-[1800px]:rounded-full
-           text-white  hover:bg-red-500 duration-500 " >Get Started</button>
+           text-white  hover:bg-emerald-400 duration-500 " >Get Started</button>
+
+<button onClick={()=>{navigate('/signup')}} className="bg-rose-600 w-fit 
+          min-[1800px]:text-2xl px-8 my-5 py-3 text-xl rounded-3xl font-medium  min-[1800px]:px-10
+          min-[1800px]:py-4  min-[1800px]:rounded-full
+           text-white  hover:bg-red-500 duration-500 " >watch Demo</button>
+
+        </div>
 
           </div>
           
